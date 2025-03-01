@@ -26,11 +26,12 @@ import {
   ArrowLeft,
 } from "lucide-react";
 
-interface FormData {
-  fullName: string;
-  email: string;
-  phoneNumber: string;
-}
+// Remove the unused FormData interface
+// interface FormData {
+//   fullName: string;
+//   email: string;
+//   phoneNumber: string;
+// }
 
 interface University {
   name: string;
@@ -149,7 +150,7 @@ const AdminPanel = ({ onBack }: AdminPanelProps) => {
       { value: "146+", label: "Students with full scholarship" },
     ],
   });
-  const [adminUser, setAdminUser] = useState<{ name: string; email: string; role: string }>({
+  const [adminUser] = useState<{ name: string; email: string; role: string }>({
     name: "Admin User",
     email: "admin@gmail.com",
     role: "Administrator",

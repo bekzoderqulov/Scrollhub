@@ -269,16 +269,6 @@ export default function Page() {
     alert("Thank you for your submission!")
   }
 
-  const handleQuestionSubmit = (question: string) => {
-    fetch("/api/questions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ question }),
-    })
-  }
-
   const university: University = {
     name: "UC Davis",
     imageUrl: "./src/components/ui/image/image 2.svg",

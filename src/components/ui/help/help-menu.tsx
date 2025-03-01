@@ -11,12 +11,6 @@ interface HelpMenuProps {
   onClose: () => void
 }
 
-interface HelpQuestion {
-  id: string
-  question: string
-  timestamp: string
-}
-
 export default function HelpMenu({ onClose }: HelpMenuProps) {
   const [question, setQuestion] = useState("")
   const [submitted, setSubmitted] = useState(false)
