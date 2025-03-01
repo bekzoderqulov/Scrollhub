@@ -337,7 +337,7 @@ export default function Page() {
     achievers[(startIndex + 1) % achievers.length],
     achievers[(startIndex + 2) % achievers.length],
     achievers[(startIndex + 3) % achievers.length],
-  ]
+  ].filter(Boolean) // Ensure no undefined achievers are included
 
   const months: CourseMonth[] = [
     {
