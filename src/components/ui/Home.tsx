@@ -21,6 +21,7 @@ import {
   QuoteIcon,
   ChevronDown,
   ChevronLeft,
+  Pause,
 } from "lucide-react"
 import HelpMenu from "./help/help-menu"
 import LoginModal from "./register-and-login/login-modal"
@@ -101,14 +102,54 @@ export default function Page() {
       "100+ scored 1500+ in SAT",
     ],
     ctaText: "Book Your Free Trial Lesson",
-    videoUrl: "",
+    videoUrl: "/image/video.mp4",
   })
+  const videoRef = React.useRef<HTMLVideoElement | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [showControls, setShowControls] = useState(false);
+
+  const handleMouseEnter = () => {
+    setShowControls(true);
+  };
+
+  const handleMouseLeave = () => {
+    setShowControls(false);
+  };
+
+  const handleVideoPlayPause = () => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause();
+      } else {
+        videoRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  const handleVideoTimeUpdate = () => {
+    if (videoRef.current) {
+      const currentTime = videoRef.current.currentTime;
+      const duration = videoRef.current.duration;
+      setProgress((currentTime / duration) * 100);
+    }
+  };
+
+  const handleSeek = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (videoRef.current) {
+      const rect = event.currentTarget.getBoundingClientRect();
+      const clickX = event.clientX - rect.left;
+      const newTime = (clickX / rect.width) * videoRef.current.duration;
+      videoRef.current.currentTime = newTime;
+    }
+  };
 
   const [coachContent, setCoachContent] = useState<CoachContent>({
     title: "Meet Your Expert Coach:",
     description:
       "Meet AbdulAziz—a seasoned SAT coach with a proven track record. With years of hands-on experience and a personalized approach, he's helped over 2,600 students achieve top scores and secure full scholarships to prestigious universities.",
-    imageUrl: "./src/components/ui/image/412.svg",
+    imageUrl: "./public/image/412.svg",
     stats: [
       { value: "2.6K+", label: "Happy Students" },
       { value: "100+", label: "Students with 1500+ SAT score" },
@@ -161,11 +202,23 @@ export default function Page() {
       setFaqs([
         {
           question: "Is it a digital course?",
-          answer:
-            "Yes, our course is fully digital and accessible online, allowing you to learn at your own pace from anywhere.",
+          answer: "Yes, ScholarHub is a fully digital platform where students can study all question types that appear on the SAT exam. The platform offers a comprehensive and interactive learning experience designed for SAT preparation.",
+        },
+        {
+          question: "What does the 4-month program cover?",
+          answer: "The program covers over 100 topics, including Cross-Text Connections, Overall Structure, Rhetorical Synthesis, Circle Equations, Nonlinear Word Problems, Manipulating Functions, and more. ScholarHub's unique advantage lies in its AI-assisted mentoring, which allows students to ask questions and receive detailed answer explanations for any SAT question, both on and off the platform. Additionally, students can access up to 10 full-length practice tests to simulate the real SAT experience.",
+        },
+        {
+          question: "How much does it cost?",
+          answer: "The full 4-month program costs 3000 dirhams. Students have the flexibility to pay in four installments of 750 dirhams each.",
+        },
+        {
+          question: "What can my child expect during the free trial class?",
+          answer: "During the trial class, students will be introduced to the program through an overview of SAT Math, SAT Grammar, and SAT Reading. They will also participate in sample lessons from each section and gain access to practice questions for those lessons, providing a clear understanding of the ScholarHub experience.",
         },
         ...storedFAQs, // Add stored FAQs after default
-      ])
+      ]);
+      
 
       // Load hero content - merge with defaults if exists
       const storedHeroContent = JSON.parse(localStorage.getItem("heroContent") || "null")
@@ -271,7 +324,7 @@ export default function Page() {
 
   const university: University = {
     name: "UC Davis",
-    imageUrl: "./src/components/ui/image/image 2.svg",
+    imageUrl: "/image/image 2.svg",
   }
 
   const featureList: Feature[] = [
@@ -299,36 +352,44 @@ export default function Page() {
 
   const allAchievers: Achiever[] = [
     {
-      name: "Full Name 1",
-      image: "./src/components/ui/image/1234.svg",
-      satScore: "1540",
+      name: "Khumoyun Nasipkulov",
+      image: "/image/IMG_3486.PNG",
+      satScore: "1460",
       scholarship: "316,000",
       quote:
-        "Lorem ipsum dolor sit amet consectetur. Consectetur pretium aliquet nisi nullam vulputate ultrices hendrerit dictumst dolor scelerisque vestibulum faucibus quis.",
+        "I attended the Coach Abdulaziz’s SAT program and really enjoyed it. Despite having very little time, I managed to complete the SAT English section in just one month with Abdulaziz’s help. In the end, I scored 1460, and I’m truly grateful for this course!",
     },
     {
-      name: "Full Name 2",
-      image: "./src/components/ui/image/123.png.svg",
-      satScore: "1550",
+      name: "Kamila Kadirova",
+      image: "./public/image/IMG_3487.JPG",
+      satScore: "1460",
       scholarship: "320,000",
       quote:
-        "Lorem ipsum dolor sit amet consectetur. Consectetur pretium aliquet nisi nullam vulputate ultrices hendrerit dictumst dolor scelerisque vestibulum faucibus quis.",
+        "Scholars Hub’s SAT program transformed my academic abilities. The strategic lessons, expert guidance, and continuous support helped me achieve a competitive score and achieve a full-tuition scholarship to Wooster College in USA.",
     },
     {
-      name: "Full Name 3",
-      image: "./src/components/ui/image/512.svg",
-      satScore: "1560",
-      scholarship: "325,000",
+      name: "Azambek Shermatov",
+      image: "./public/image/odam.JPG",
+      satScore: "1520",
+      scholarship: "347,000",
       quote:
-        "Lorem ipsum dolor sit amet consectetur. Consectetur pretium aliquet nisi nullam vulputate ultrices hendrerit dictumst dolor scelerisque vestibulum faucibus quis.",
+        "Scholar Hub’s comprehensive SAT program was the key to my academic success. Their structured curriculum, expert mentorship, and personalized feedback helped me secure a full-ride scholarship at Colby College.",
     },
     {
-      name: "Full Name 4",
-      image: "./src/components/ui/image/981.svg",
-      satScore: "1570",
-      scholarship: "330,000",
+      name: "Munisa Mahamjonova",
+      image: "./public/image/IMG_3488.JPG",
+      satScore: "1460",
+      scholarship: "200,000",
       quote:
-        "Lorem ipsum dolor sit amet consectetur. Consectetur pretium aliquet nisi nullam vulputate ultrices hendrerit dictumst dolor scelerisque vestibulum faucibus quis.",
+        "When I started applying to universities, I realized that most Florida institutions require the SAT, so I needed to take the exam. After hearing great reviews about Mr. Abdulaziz, I decided to join his SAT course—and it was one of the best decisions I made, The knowledge and strategies he shared played a crucial role in helping me succeed on the SAT. Mr. Abdulaziz also guided students through the university application process, providing invaluable advice and assistance to his students.",
+    },
+    {
+      name: "Ibrohim Iskandarov",
+      image: "./public/image/IMG_4693.PNG",
+      satScore: "1490",
+      scholarship: "320,000",
+      quote:
+        "Hello! I’m Ibrohim, and currently I am a sophomore at NYU Abu Dhabi. I study computer science and applied mathematics. I attended SAT course back in spring 2023, and loved it! Abdulaiz, my teacher was extremely helpful and his explanations made it super easy to navigate through the complex reading questions. I got 1490, and wanted to thank the course for that.",
     },
   ]
 
@@ -341,30 +402,30 @@ export default function Page() {
 
   const months: CourseMonth[] = [
     {
-      title: "Month 1: SAT Grammar & Pre-Algebra",
+      title: "Month 1: Basic Grammar & Pre-Algebra",
       content:
-        "Here, we'll discuss effective study strategies, time management techniques, and how to create a personalized study plan that works best for you.",
+        "Since all students start the program with different knowledge, our first priority is making students have the correct baseline knowledge by recovering topics from Basic Grammar and Pre-Algebra that they have forgotten.",
     },
     {
-      title: "Month 2: SAT Grammar & Algebra",
-      content: "Advanced concepts in grammar and algebra with practice exercises and detailed explanations.",
+      title: "Month 2: SAT Grammar & SAT Algebra",
+      content: "After ensuring baseline knowledge, we educate the student on SAT-level Grammar and Algebra concepts that will appear during the test. The knowledge here will account for half of the entire SAT. Students will also be given their first Mid-Course Practice Test.",
     },
     {
-      title: "Month 3: SAT Reading & Statistics",
-      content: "Comprehensive reading strategies and statistical analysis techniques with real exam-style questions.",
+      title: "Month 3: SAT Reading & SAT Statistics ",
+      content: "Here begins the real challenge: SAT Reading & SAT Statistics. Students learn strategies to tackle these difficult sections all while completing practice tests on a regular basis.",
     },
     {
-      title: "Month 4: SAT Reading & Geometry",
+      title: "Month 4: SAT Reading & SAT Geometry ",
       content:
-        "Final preparation covering advanced reading comprehension and geometry concepts with full practice tests.",
+        "Students study the hardest question types from the SAT Reading section while completing SAT Math with the Geometry section. The final month also includes a lot of practice tests with lessons dedicated to exam prep advice.",
     },
   ]
 
   const courseFeatures = [
-    "4 months of SAT preparation",
+    "4+2 months of SAT preparation",
     "100+ SAT Math & English lessons",
     "2500+ SAT practice questions",
-    "6 realistic SAT practice tests",
+    "10 realistic SAT practice tests",
     "Personalized learning approach",
     "Revolutionary AI-assisted support",
   ]
@@ -466,9 +527,40 @@ export default function Page() {
               </Button>
               <p className="text-sm text-red-600 mt-4">🔥 Hurry only 12 spots left</p>
             </div>
-            <div className="relative aspect-video bg-gray-100 rounded-lg overflow-hidden">
+            <div
+              className="relative aspect-video bg-gray-100 rounded-lg overflow-hidden"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
               {heroContent.videoUrl ? (
-                <video src={heroContent.videoUrl} className="w-full h-full object-cover" />
+                <div className="relative w-full h-full">
+                  <video
+                    ref={videoRef}
+                    src={heroContent.videoUrl}
+                    className="w-full h-full object-cover cursor-pointer"
+                    onClick={handleVideoPlayPause}
+                    onTimeUpdate={handleVideoTimeUpdate}
+                  />
+                  <div
+                    className="absolute bottom-0 left-0 w-full h-2 bg-gray-300 cursor-pointer"
+                    onClick={handleSeek}
+                  >
+                    <div
+                      className="h-full bg-blue-600"
+                      style={{ width: `${progress}%` }}
+                    ></div>
+                  </div>
+                  {showControls && (
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      className="absolute inset-0 m-auto rounded-full w-16 h-16"
+                      onClick={handleVideoPlayPause}
+                    >
+                      {isPlaying ? <Pause className="h-8 w-8" /> : <Play className="h-8 w-8" />}
+                    </Button>
+                  )}
+                </div>
               ) : (
                 <Button variant="outline" size="icon" className="absolute inset-0 m-auto rounded-full w-16 h-16">
                   <Play className="h-8 w-8" />
@@ -609,7 +701,7 @@ export default function Page() {
           <div className="grid md:grid-cols-2 gap-12 items-start">
             <div className="relative">
               <img
-                src="./src/components/ui/image/Group 3.svg"
+                src="./image/Group 3.svg"
                 alt="Course Program"
                 className="w-full rounded-lg shadow-lg"
               />
