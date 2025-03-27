@@ -102,7 +102,7 @@ export default function Page() {
       "100+ scored 1500+ in SAT",
     ],
     ctaText: "Book Your Free Trial Lesson",
-    videoUrl: "/image/video.mp4",
+    videoUrl: "./image/video.mp4",
   })
   const videoRef = React.useRef<HTMLVideoElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -149,7 +149,7 @@ export default function Page() {
     title: "Meet Your Expert Coach:",
     description:
       "Meet AbdulAziz—a seasoned SAT coach with a proven track record. With years of hands-on experience and a personalized approach, he's helped over 2,600 students achieve top scores and secure full scholarships to prestigious universities.",
-    imageUrl: "./public/image/412.svg",
+    imageUrl: "./image/412.svg",
     stats: [
       { value: "2.6K+", label: "Happy Students" },
       { value: "100+", label: "Students with 1500+ SAT score" },
@@ -361,7 +361,7 @@ export default function Page() {
     },
     {
       name: "Kamila Kadirova",
-      image: "./public/image/IMG_3487.JPG",
+      image: "./image/IMG_3487.JPG",
       satScore: "1460",
       scholarship: "320,000",
       quote:
@@ -369,7 +369,7 @@ export default function Page() {
     },
     {
       name: "Azambek Shermatov",
-      image: "./public/image/odam.JPG",
+      image: "./image/odam.JPG",
       satScore: "1520",
       scholarship: "347,000",
       quote:
@@ -377,7 +377,7 @@ export default function Page() {
     },
     {
       name: "Munisa Mahamjonova",
-      image: "./public/image/IMG_3488.JPG",
+      image: "./image/IMG_3488.JPG",
       satScore: "1460",
       scholarship: "200,000",
       quote:
@@ -385,7 +385,7 @@ export default function Page() {
     },
     {
       name: "Ibrohim Iskandarov",
-      image: "./public/image/IMG_4693.PNG",
+      image: "./image/IMG_4693.PNG",
       satScore: "1490",
       scholarship: "320,000",
       quote:
