@@ -102,7 +102,7 @@ export default function Page() {
       "100+ scored 1500+ in SAT",
     ],
     ctaText: "Book Your Free Trial Lesson",
-    videoUrl: "./image/video.mp4",
+    videoUrl: "./image/video.mp4a",
   })
   const videoRef = React.useRef<HTMLVideoElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -852,7 +852,7 @@ export default function Page() {
               </div>
               <div className="flex pt-2">
                 <p>Developed by</p>
-                <a className="pl-1 hover:underline" href="https://www.udemere.uz/">
+                <a className="pl-1 hover:underline" href="https://www.shahnur.software/en">
                   ShahNur Software
                 </a>
               </div>
@@ -894,11 +894,11 @@ export default function Page() {
               <h3 className="font-bold mb-4">We accept</h3>
               <div className="flex gap-2">
                 <img
-                  src="./src/components/ui/image/Frame 26086629.svg"
+                  src="./image/Frame 26086629.svg"
                   alt="Mastercard"
                   className="h-8 cursor-pointer"
                 />
-                <img src="./src/components/ui/image/Frame 26086631.svg" alt="Visa" className="h-8 cursor-pointer" />
+                <img src="./image/Frame 26086631.svg" alt="Visa" className="h-8 cursor-pointer" />
               </div>
             </div>
           </div>
