@@ -102,7 +102,7 @@ export default function Page() {
       "100+ scored 1500+ in SAT",
     ],
     ctaText: "Book Your Free Trial Lesson",
-    videoUrl: "./image/video.mp4a",
+    videoUrl: "./image/video.mp4",
   })
   const videoRef = React.useRef<HTMLVideoElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
